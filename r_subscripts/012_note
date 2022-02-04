@@ -1,0 +1,4 @@
+To get values normalised also with the DEqMS algrithm read in 
+003_ab_list.RData
+002a_norm_ms.RData and 002b_norm_pea.RData have not been normalised with "Equal median normalization" of the  DEqMS package.
+This is because it take a matrix as input and do not operate on long data as the other transformation operatins.

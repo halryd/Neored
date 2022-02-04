@@ -1,0 +1,153 @@
+---
+title: "R scripts for analysis of mass spectrometry and Olink PEA proteomics data from cord blood"
+subtitle: "Using Reactome, Weighted Gene Correlation Network Analyis (WGCNA) and gene centric methods"
+output:
+ html_document:
+   df_print: paged
+   toc: true
+   toc_depth: 2
+bibliography: ./data/neored_packages.bib
+nocite: '@*'
+---
+
+```{r setup, include=F}
+require(knitr)
+path_to_my_project="/Users/xrydbh/Personal/Projects/git_cloned/Neored_fresh/Neored"
+knitr::opts_knit$set(root.dir = path_to_my_project)
+#knitr::opts_knit$set(root.dir = "/Users/xrydbh/OneDrive - University of Gothenburg/Neored")
+
+```
+
+Supporting repository for the manuscript “The proteome signature of cord blood plasma with high hematopoietic stem and progenitor cell count”
+
+## What this workflow does 
+
+<!-- ```{r sunburst, echo=F, message=FALSE, fig.cap ="Three main types of analyses"} -->
+<!-- source("./r_subscripts/make_graphcal_abstract/sunburst_plot.R") -->
+<!-- fig -->
+<!-- ``` -->
+
+![](./data/023_neored_graphical_ab_sunburst.png)
+
+
+
+This repository contains a set of R scripts that performs protein, pathway and correlation module centric analysis of proteomics data. 
+
+More specifically it uses data from two different technologies that to a large extent complement each other in terms of covered proteins but also to a small extent overlaps in terms of that coverage. It takes two Excel files as input. One with Olink NPX protein expression values and one with mass spectrometry normalized abundance (formated output from Proteome Discoverer).
+
+The specific data analyzed in this project is collected from cord blood plasma. 8 samples with high CDC34 concentration and 8 samples with low such concentration. The project is trying to find proteomics biomarkers for CD34 concentration. It looks for biomarkers on the single protein level but also looks more widely into pathways with differing expression patterns.
+
+It looks for differentially expressed genes using the packages  t-test and DEqMS, pathways using ReactomeGSA and correlation modules using WGCNA.
+
+## The purpose of this repository
+The main purpose of this repository is to make the published analysis reproducible. A secondary usage would be for anyone to run the code for another project with similar datasets.
+It applies a set for recently published algorithms and software proven to outperform their predecessors in a workflow to identify biomarkers.
+
+## How to run the analysis (the r-scripts)
+
+There is a README.Rmd. It can be used to run all or a subset of the R scripts of the analysis. It also generates the README.md file for github site.
+
+
+
+To reproduce the published analysis:
+
+1. clone this repository 
+2. Checkout commit 7bea4b7941ea96354e897b971d84758104e83545 from the master branch
+3. Move or delete the out_r folder and make a new empty out_r
+4. Edit "path_to_my_project" in README.Rmd 
+5. Rerun the scripts in the "r_subscripts" folder. This is easiest done by running the README.Rmd file. It runs the R scripts and render markdown files and generates a README.md file with links to the markdown reports markdown files. (This was the only way I could render markdown form the scripts and keep the main direcory as working directory. I am sure there is a tidyer way to make README fils)
+Note:  There is also a README_local_html.Rmd that can be used to generate a corresponding README file in html that can be used locally, not at github.)
+6. For each subscript to be run from the README file(s) it might have to be "uncommented" by removing the hash in front of it.
+
+```{r README_render_markdown_chunk1, include=F}
+
+# This script can be used to render html report locally 
+# Any html code is ignored by git however since github works well with displaying markdown as it is
+rmarkdown::render("./markdown/0_install_packages.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/000a_ms_project_specific_formatting.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/000b_pea_project_specific_formatting.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/002a1_filter_ms_go_bp_keratinization.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/002a2_ms_format_normalize_naFilter.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/002b_pea_format_normalize_naFilter.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/003_collect_ms_and_pea.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/004_correlation_platform_shared.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/005_gsea_camera_ReactomeGSA.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/006a_collect_reactome_results_tables.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/006b_reactome_dotplot.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/007_statistical_testing_and_relevant_plots.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/008_boxplots.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/009_WGCNA.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/009b_WGCNA_uniprot.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/010_plot_WGCNA_hubgene_network.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/011_WGCNA_ORA_Kegg.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/012_collect_filt_norm_data_and_testresults.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/013_add_annotation.md","html_document", output_dir="./html/")
+# rmarkdown::render("./markdown/014_doublecheck_foldchange.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/015a_plot_concentrations_ms.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/015b_plot_concentrations_pea.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/016_annotate_relevant_wgcna_mods.md","html_document", output_dir="./html/")
+rmarkdown::render("./markdown/020_compile_supplementory_tables.md","html_document", output_dir="./html/")
+# rmarkdown::render("./markdown/022_render_compile_supplementory_figures.md","html_document", output_dir="./html/")
+
+```
+
+## Take a look the code
+
+If you would like to see what is going on in the scripts the code and output can be accessed with the linkes below. The links are in order of executions.
+
+* [install packages](html/0_install_packages.html)
+* [ms_project_specific_formatting](html/000a_ms_project_specific_formatting.html)
+* [pea_project_specific_formatting](html/000b_pea_project_specific_formatting.html)
+* [make_per_plf_sample_name_keys](html/001_make_per_plf_sample_name_keys.html)
+* [filter_ms_go_bp_keratinization.](html/002a1_filter_ms_go_bp_keratinization.html)
+* [pea_format_normalize_naFilter](html/002a2_ms_format_normalize_naFilter.html)
+* [pea_format_normalize_naFilter](html/002b_pea_format_normalize_naFilter.html)
+* [collect_ms_and_pea](html/003_collect_ms_and_pea.html)
+* [correlation_platform_shared](html/004_correlation_platform_shared.html)
+* [gsea_padog_ReactomeGSA](html/005_gsea_padog_ReactomeGSA.html)
+* [collect_reactome_results_tables](html/006a_collect_reactome_results_tables.html)
+* [visualize_reactome_results_in_dot_plot](html/006b_reactome_dotplot.html)
+* [visualize_reactome_results_in_hierarch_tree](html/006c_reactome_results_in_hierarch_tree.html)
+* [statistical_testing_and_relevant_plots](html/007_statistical_testing_and_relevant_plots.html)
+* [boxplots](html/008_boxplots.html)
+* [WGCNA using gene symbol gene ID](html/009_WGCNA.html)
+* [WGCNA using uniprot gene ID](html/009b_WGCNA_uniprot.html)
+* [plot_WGCNA_hubgene_network](html/010_plot_WGCNA_hubgene_network.html)
+* [WGCNA_ORA_Kegg](html/011_WGCNA_ORA_Kegg.html)
+* [collect_filt_norm_data_and_testresults](html/012_collect_filt_norm_data_and_testresults.html)
+* [add_annotation](html/013_add_annotation.html)
+* [plot_concentrations_ms](html/015a_plot_concentrations_ms.html)
+* [plot_concentrations_pea](html/015b_plot_concentrations_pea.html)
+* [annotate_relevant_wgcna_mods](html/016_annotate_relevant_wgcna_mods.html)
+* [compile_supplementory_file](html/020_compile_supplementory_tables.html)
+
+## Links to Reactome webserver to browse results
+Only active at Reactome server for seven days. Then this analysis (or script 006) has to be rerun.
+
+### Correlation Adjusted MEan RAnk (CAMERA)
+
+```{r README_chunk2, include=F}
+# Generating a report with web links to ReactomeGSA analysis results
+getwd()
+setwd(path_to_my_project)
+my_methods <- c("Camera") # "ssGSEA","PADOG",
+reactome_res <- list()
+for (meth in my_methods){
+res <- list()
+res[["ms"]] <- readRDS(paste("./RData/reactome_results/ReactomeGSA_result_",meth,"_ms_abundances_eq_med_norm.rds",sep=""))
+res[["pea"]] <- readRDS(paste("./RData/reactome_results/ReactomeGSA_result_",meth,"_pea_abundances_eq_med_norm.rds",sep="")) 
+reactome_res[[meth]] <- res
+}
+```
+
+* [MS](`r reactome_res[["Camera"]][["ms"]]@reactome_links[[1]][["url"]]`)
+* [PEA](`r reactome_res[["Camera"]][["pea"]]@reactome_links[[1]][["url"]]`)
+
+## Generating the README.md file for Github (the file that you are reading now)
+Run/Knit "README.Rmd"
+
+## Generating the README.html for local browsing
+Run "render_html.R"
+
+
+## References to all used R packages

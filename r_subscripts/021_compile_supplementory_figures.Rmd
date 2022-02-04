@@ -1,0 +1,64 @@
+---
+title: "Supplementary figures"
+output:
+  # output: word_document
+  html_document:
+    df_print: paged
+---
+
+
+## Targeted and untargeted proteomics of plasma from cord blood with high vs low hematopoietic stem and progenitor cell count
+
+<span style="font-size:1em;">
+<center>
+*Anders K Nilsson*†1, Halfdan Rydbeck*1, Annika Thorsell2, Sofia Frändberg3,4, Helena Barreto Henriksson3,4, Camilla Hesse3,4, Gunnel Hellgren1,5, Anna-Lena Hård af Segerstad Boberg1, Pia Lundgren6, and Ann Hellström1
+In order to center text in md files you can use the center tag like html tag:
+*</center>
+</span>
+
+
+1)	Department of Clinical Neuroscience, Institute of Neuroscience and Physiology, Sahlgrenska Academy, University of Gothenburg, Gothenburg, Sweden;
+2)	Proteomics Core Facility at Sahlgrenska Academy, University of Gothenburg, SE- 40530 Gothenburg, Sweden;
+3)	Department of Clinical Immunology and Transfusion Medicine, Sahlgrenska Hospital, Gothenburg, Sweden; 
+4)	Department of Obstetrics, The Queen Silvia Children´s Hospital, Gothenburg, Sweden;
+5)	Institute of Biomedicine, Sahlgrenska Academy, University of Gothenburg, Gothenburg, Sweden;
+6)	School of Medical Sciences, Faculty of Medicine and Health, Örebro University, Örebro, Sweden.
+
+
+Address correspondence to Anders K. Nilsson, anders.k.nilsson@gu.se
+
+
+# ```{r, setup, include=FALSE}
+# my_wd="/Users/xrydbh/Personal/Projects/git_cloned/Neored_cloned"
+# knitr::opts_knit$set(root.dir = my_wd)
+# ```
+
+## Box plots MS
+
+<!-- ```{r, out.width="0.3\\linewidth", include=TRUE, fig.align="center", fig.cap=c("your caption"), echo=FALSE} -->
+<!-- knitr::include_graphics("../out_r/008_boxplot_p005_FC_2_sign_DEqMS_wider_dist_eq_med_norm.pdf") -->
+<!-- ``` -->
+
+<!-- ```{r image-ref-for-in-text, echo = FALSE, message=FALSE, fig.align='center', fig.cap='Some cool caption', out.width='0.75\\linewidth', fig.pos='H'} -->
+<!-- knitr::include_graphics("/out_r/008_boxplot_p005_FC_2_sign_DEqMS_wider_dist_eq_med_norm.pdf") -->
+<!-- ``` -->
+
+
+## Fig.S1
+![Fig.S1 Box plots of proteins in the MS data with >two-fold abundance differences and p<0.05 between groups (CD34 high vs CD34 low). ](../out_r/008_boxplot_p005_FC_2_sign_DEqMS_narrow_dist_eq_med_norm.pdf){width=100%}
+
+![Fig.S1](../out_r/008_boxplot_p005_FC_2_sign_DEqMS_wider_dist_eq_med_norm.pdf){width=100%}
+
+
+## Fig.S2
+![Fig.S2](../out_r/008_boxplot_p005_FC_2_sign_ttest_pea_eq_med_norm.pdf){width=100%}
+
+## Significant_pathways_in_pw_hierarchy
+![Fig.S3](../out_r/Reactome/Significant_pathways_in_pw_hierarchy.pdf)
+
+## Venn diagram of pathway overlap
+
+![Fig.S4](../out_r/14_venn_pw_overlap_3.pdf)
+
+
+
