@@ -59,7 +59,7 @@ There is a README.Rmd. It can be used to run all or a subset of the R scripts of
 To reproduce the published analysis:
 
 1. clone this repository 
-2. Checkout commit 7bea4b7941ea96354e897b971d84758104e83545 from the master branch
+2. Checkout commit 778d19a5f01fe38871da7a947e42700041e4886b from the master branch
 3. Move or delete the out_r folder and make a new empty out_r
 4. Edit "path_to_my_project" in README.Rmd 
 5. Rerun the scripts in the "r_subscripts" folder. This is easiest done by running the README.Rmd file. It runs the R scripts and render markdown files and generates a README.md file with links to the markdown reports markdown files. (This was the only way I could render markdown form the scripts and keep the main direcory as working directory. I am sure there is a tidyer way to make README fils)
@@ -125,8 +125,8 @@ reactome_res[[meth]] <- res
 # rmarkdown::render("./r_subscripts/015a_plot_concentrations_ms.R","github_document", output_dir="./markdown/")
 # rmarkdown::render("./r_subscripts/015b_plot_concentrations_pea.R","github_document", output_dir="./markdown/")
 # rmarkdown::render("./r_subscripts/016_annotate_relevant_wgcna_mods.R","github_document", output_dir="./markdown/")
-rmarkdown::render("./r_subscripts/020_compile_supplementory_tables.R","github_document", output_dir="./markdown/")
-rmarkdown::render("./r_subscripts/020_compile_supplementory_tables.R","github_document", output_dir="./markdown/")
+# rmarkdown::render("./r_subscripts/020_compile_supplementory_tables.R","github_document", output_dir="./markdown/")
+# rmarkdown::render("./r_subscripts/020_compile_supplementory_tables.R","github_document", output_dir="./markdown/")
 # rmarkdown::render("./r_subscripts/022_render_compile_supplementory_figures.R","github_document", output_dir="./markdown/")
 
 ```

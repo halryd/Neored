@@ -69,7 +69,7 @@ site.
 To reproduce the published analysis:
 
 1.  clone this repository
-2.  Checkout commit 7bea4b7941ea96354e897b971d84758104e83545 from the
+2.  Checkout commit 778d19a5f01fe38871da7a947e42700041e4886b from the
     master branch
 3.  Move or delete the out\_r folder and make a new empty out\_r
 4.  Edit “path\_to\_my\_project” in README.Rmd
